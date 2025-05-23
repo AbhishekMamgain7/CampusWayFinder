@@ -76,14 +76,6 @@ CampusWayFinder/
 2. Use the interactive map to locate specific areas
 3. Follow the visual cues for navigation assistance
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Contact
 
 For any queries or support, please open an issue in the repository. 
