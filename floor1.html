@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusWayFinder - First Floor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Campus<span>Way</span>Finder</h1>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="controls">
+                <div class="floor-selector">
+                    <select id="floorSelect" onchange="loadFloor(this.value)">
+                        <option value="floor0.html">Ground Floor</option>
+                        <option value="floor1.html" selected>First Floor</option>
+                        <option value="floor2.html">Second Floor</option>
+                        <option value="floor3.html">Third Floor</option>
+                        <option value="floor4.html">Fourth Floor</option>
+                        <option value="floor5.html">Fifth Floor</option>
+                    </select>
+                </div>
+                
+                <div class="path-controls">
+                    <button id="findPathBtn" class="path-btn">
+                        <i class="fas fa-route"></i> Find Path
+                    </button>
+                    <div class="path-selectors">
+                        <select id="startLocation">
+                            <option value="">Select Start</option>
+                            <option value="Library">Library</option>
+                            <option value="UbuntuLab">TCL 1/2</option>
+                            <option value="SeminarHall">LT-202</option>
+                            <option value="ConferenceRoom">LT-201</option>
+                            <option value="Lab1">Lab - 2</option>
+                            <option value="Lab8">Lab - 9</option>
+                            <option value="CR102">CR-202</option>
+                            <option value="CR103">CR-203</option>
+                            <option value="CR104">CR-204</option>
+                            <option value="Lift">Lift</option>
+                        </select>
+                        <select id="endLocation">
+                            <option value="">Select Destination</option>
+                            <option value="Library">Library</option>
+                            <option value="UbuntuLab">TCL 1/2</option>
+                            <option value="SeminarHall">LT-202</option>
+                            <option value="ConferenceRoom">LT-201</option>
+                            <option value="Lab1">Lab - 2</option>
+                            <option value="Lab8">Lab - 9</option>
+                            <option value="CR102">CR-202</option>
+                            <option value="CR103">CR-203</option>
+                            <option value="CR104">CR-204</option>
+                            <option value="Lift">Lift</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <img alt="Campus Map" class="campus-map" src="map.png"/>
+                    <svg class="connection-lines"></svg>
+                    
+                    <!-- Location Nodes -->
+                    <div class="node location" id="Library" style="left:394px; top:632px;" title="Library">
+                        <span class="label">Library</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="UbuntuLab" style="left:98px; top:332px;" title="TCL 1/2">
+                        <span class="label">TCL 1/2</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="SeminarHall" style="left:303px; top:200px;" title="LT-202">
+                        <span class="label">LT-202</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="ConferenceRoom" style="left:532px; top:425px;" title="LT-201">
+                        <span class="label">LT-201</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="Lab1" style="left:418px; top:105px;" title="Lab - 2">
+                        <span class="label">Lab - 2</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="Lab8" style="left:637px; top:322px;" title="Lab - 9">
+                        <span class="label">Lab - 9</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="CR102" style="left:547px; top:50px;" title="CR-202">
+                        <span class="label">CR-202</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="CR103" style="left:620px; top:116px;" title="CR-203">
+                        <span class="label">CR-203</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="CR104" style="left:687px; top:187px;" title="CR-204">
+                        <span class="label">CR-204</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    <div class="node location" id="Lift" style="left:543px; top:184px;" title="Lift">
+                        <span class="label">Lift</span>
+                        <div class="node-tooltip">Click to set as start/destination</div>
+                    </div>
+                    
+                    <!-- Path Nodes -->
+                    <div class="node path" id="p1" style="left:179px; top:369px;" title="p1"></div>
+                    <div class="node path" id="p2" style="left:200px; top:352px;" title="p2"></div>
+                    <div class="node path" id="p3" style="left:221px; top:332px;" title="p3"></div>
+                    <div class="node path" id="p4" style="left:242px; top:317px;" title="p4"></div>
+                    <div class="node path" id="p5" style="left:261px; top:300px;" title="p5"></div>
+                    <div class="node path" id="p6" style="left:279px; top:283px;" title="p6"></div>
+                    <div class="node path" id="p7" style="left:299px; top:267px;" title="p7"></div>
+                    <div class="node path" id="p8" style="left:320px; top:251px;" title="p8"></div>
+                    <div class="node path" id="p9" style="left:355px; top:276px;" title="p9"></div>
+                    <div class="node path" id="p10" style="left:386px; top:307px;" title="p10"></div>
+                    <div class="node path" id="p11" style="left:416px; top:338px;" title="p11"></div>
+                    <div class="node path" id="p12" style="left:447px; top:369px;" title="p12"></div>
+                    <div class="node path" id="p13" style="left:475px; top:400px;" title="p13"></div>
+                    <div class="node path" id="p14" style="left:463px; top:420px;" title="p14"></div>
+                    <div class="node path" id="p15" style="left:447px; top:441px;" title="p15"></div>
+                    <div class="node path" id="p16" style="left:431px; top:462px;" title="p16"></div>
+                    <div class="node path" id="p17" style="left:411px; top:487px;" title="p17"></div>
+                    <div class="node path" id="p18" style="left:398px; top:507px;" title="p18"></div>
+                    <div class="node path" id="p19" style="left:382px; top:531px;" title="p19"></div>
+                    <div class="node path" id="p20" style="left:359px; top:555px;" title="p20"></div>
+                    <div class="node path" id="p21" style="left:201px; top:394px;" title="p21"></div>
+                    <div class="node path" id="p22" style="left:221px; top:415px;" title="p22"></div>
+                    <div class="node path" id="p23" style="left:242px; top:431px;" title="p23"></div>
+                    <div class="node path" id="p24" style="left:258px; top:446px;" title="p24"></div>
+                    <div class="node path" id="p25" style="left:275px; top:463px;" title="p25"></div>
+                    <div class="node path" id="p26" style="left:294px; top:480px;" title="p26"></div>
+                    <div class="node path" id="p27" style="left:312px; top:499px;" title="p27"></div>
+                    <div class="node path" id="p28" style="left:330px; top:516px;" title="p28"></div>
+                    <div class="node path" id="p29" style="left:344px; top:533px;" title="p29"></div>
+                    <div class="node path" id="p36" style="left:495px; top:227px;" title="p36"></div>
+                    <div class="node path" id="p37" style="left:463px; top:257px;" title="p37"></div>
+                    <div class="node path" id="p38" style="left:434px; top:287px;" title="p38"></div>
+                    <div class="node path" id="p39" style="left:475px; top:184px;" title="p39"></div>
+                    <div class="node path" id="p40" style="left:449px; top:151px;" title="p40"></div>
+                    <div class="node path" id="p41" style="left:454px; top:124px;" title="p41"></div>
+                    <div class="node path" id="p42" style="left:473px; top:104px;" title="p42"></div>
+                    <div class="node path" id="p43" style="left:494px; top:85px;" title="p43"></div>
+                    <div class="node path" id="p44" style="left:522px; top:83px;" title="p44"></div>
+                    <div class="node path" id="p45" style="left:544px; top:103px;" title="p45"></div>
+                    <div class="node path" id="p46" style="left:563px; top:123px;" title="p46"></div>
+                    <div class="node path" id="p47" style="left:583px; top:135px;" title="p47"></div>
+                    <div class="node path" id="p48" style="left:600px; top:150px;" title="p48"></div>
+                    <div class="node path" id="p49" style="left:615px; top:166px;" title="p49"></div>
+                    <div class="node path" id="p50" style="left:631px; top:182px;" title="p50"></div>
+                    <div class="node path" id="p51" style="left:648px; top:196px;" title="p51"></div>
+                    <div class="node path" id="p52" style="left:654px; top:219px;" title="p52"></div>
+                    <div class="node path" id="p53" style="left:636px; top:242px;" title="p53"></div>
+                    <div class="node path" id="p54" style="left:621px; top:268px;" title="p54"></div>
+                    <div class="node path" id="p55" style="left:596px; top:281px;" title="p55"></div>
+                    <div class="node path" id="p56" style="left:559px; top:272px;" title="p56"></div>
+                    <div class="node path" id="p57" style="left:529px; top:245px;" title="p57"></div>
+                </div>
+            </div>
+            
+            <div class="path-info">
+                <div id="pathInstructions" class="instructions">
+                    <h3><i class="fas fa-directions"></i> Path Instructions</h3>
+                    <p>Select start and destination points to see the path.</p>
+                </div>
+                <div class="distance-time">
+                    <div class="metric">
+                        <i class="fas fa-route"></i>
+                        <span id="distance">--</span> meters
+                    </div>
+                    <div class="metric">
+                        <i class="fas fa-clock"></i>
+                        <span id="time">--</span> minutes
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 CampusWayFinder. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
